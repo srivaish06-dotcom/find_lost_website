@@ -1,0 +1,973 @@
+None selected 
+
+Skip to content
+Using Gmail with screen readers
+22 of 77
+project kec
+Inbox
+
+Sri Vaishnavi <srivaish06@gmail.com>
+Attachments
+Fri, Mar 13, 2:48 PM
+to me
+
+
+ 5 Attachments
+  •  Scanned by Gmail
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Campus Lost & Found Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   RESET & CSS VARIABLES
+============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0F14;
+  --surface:#161820;
+  --surface2:#1E2028;
+  --surface3:#252830;
+  --border:#2E3140;
+  --border2:#3A3F55;
+  --ink:#F0EEE9;
+  --ink2:#A8A5B0;
+  --ink3:#6B6878;
+  --lost:#FF4D6D;
+  --lost-soft:rgba(255,77,109,.12);
+  --found:#00D48B;
+  --found-soft:rgba(0,212,139,.12);
+  --accent:#FFBE0B;
+  --accent-soft:rgba(255,190,11,.12);
+  --blue:#4361EE;
+  --blue-soft:rgba(67,97,238,.12);
+  --purple:#8B5CF6;
+  --purple-soft:rgba(139,92,246,.12);
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.6);
+  --font-display:'Cabinet Grotesk',sans-serif;
+  --font-body:'Satoshi',sans-serif;
+  --nav-h:68px;
+  --ease:.25s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;overflow-x:hidden}
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+nav{
+  position:sticky;top:0;z-index:200;
+  height:var(--nav-h);
+  background:rgba(13,15,20,.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 clamp(1rem,4vw,2.5rem);
+  gap:1.5rem;
+}
+.nav-brand{
+  display:flex;align-items:center;gap:.6rem;
+  font-family:var(--font-display);font-size:1.15rem;font-weight:900;
+  letter-spacing:-.02em;color:var(--ink);text-decoration:none;flex-shrink:0;
+}
+.nav-brand-badge{
+  background:linear-gradient(135deg,var(--lost),var(--accent));
+  color:#000;font-size:.65rem;font-weight:800;letter-spacing:.06em;
+  padding:.2rem .5rem;border-radius:6px;text-transform:uppercase;
+}
+.nav-links{display:flex;gap:.3rem;margin-left:auto;flex-wrap:wrap}
+.nav-btn{
+  font-family:var(--font-body);font-size:.82rem;font-weight:500;
+  padding:.42rem 1rem;border-radius:50px;border:1px solid transparent;
+  cursor:pointer;background:transparent;color:var(--ink2);
+  transition:var(--ease);white-space:nowrap;
+}
+.nav-btn:hover{background:var(--surface2);color:var(--ink);border-color:var(--border)}
+.nav-btn.active{background:var(--surface3);color:var(--ink);border-color:var(--border2)}
+
+/* ============================================================
+   PAGE SYSTEM
+============================================================ */
+.page{display:none;padding:clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,2.5rem);max-width:1200px;margin:0 auto;animation:fadeUp .35s ease both}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================
+   SECTION HEADERS
+============================================================ */
+.section-head{margin-bottom:1.75rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.section-title .hi{background:linear-gradient(90deg,var(--lost),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-sub{color:var(--ink2);font-size:.95rem;margin-top:.4rem;font-weight:400}
+
+/* ============================================================
+   HERO SEARCH (Home)
+============================================================ */
+.hero{
+  background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);
+  border:1px solid var(--border);border-radius:24px;
+  padding:clamp(2rem,5vw,3.5rem);margin-bottom:2.5rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,77,109,.15),transparent 70%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-80px;left:20%;
+  width:250px;height:250px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,212,139,.1),transparent 70%);
+  pointer-events:none;
+}
+.hero-label{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.hero-label::before{content:'';width:20px;height:2px;background:var(--accent);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:.75rem}
+.hero h1 span{color:var(--accent)}
+.hero-desc{color:var(--ink2);max-width:520px;margin-bottom:2rem;font-size:.97rem}
+.search-wrap{display:flex;gap:.75rem;flex-wrap:wrap}
+.search-box{
+  flex:1;min-width:200px;
+  display:flex;align-items:center;gap:.75rem;
+  background:var(--surface3);border:1px solid var(--border2);border-radius:50px;
+  padding:.6rem 1.3rem;
+}
+.search-box input{
+  flex:1;background:none;border:none;outline:none;
+  font-family:var(--font-body);font-size:.95rem;color:var(--ink);
+}
+.search-box input::placeholder{color:var(--ink3)}
+.search-icon{color:var(--ink3);font-size:1.1rem;flex-shrink:0}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.65rem 1.4rem;border-radius:50px;border:none;
+  font-family:var(--font-display);font-size:.9rem;font-weight:700;
+  cursor:pointer;transition:var(--ease);letter-spacing:.01em;
+}
+.btn-primary{background:linear-gradient(135deg,var(--lost),#FF6B35);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,77,109,.4)}
+.btn-found{background:linear-gradient(135deg,var(--found),#00B4D8);color:#000;font-weight:800}
+.btn-found:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,139,.35)}
+.btn-ghost{background:var(--surface3);border:1px solid var(--border2);color:var(--ink2)}
+.btn-ghost:hover{border-color:var(--border2);color:var(--ink);background:var(--surface2)}
+.btn-sm{padding:.4rem .9rem;font-size:.8rem}
+.btn-contact{
+  background:var(--blue-soft);border:1px solid var(--blue);
+  color:var(--blue);font-family:var(--font-body);font-weight:600;
+  font-size:.8rem;padding:.35rem .85rem;border-radius:50px;
+  cursor:pointer;transition:var(--ease);
+}
+.btn-contact:hover{background:var(--blue);color:#fff}
+
+/* ============================================================
+   QUICK STATS ROW
+============================================================ */
+.quick-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-bottom:2.5rem}
+.qs-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.3rem;
+  transition:var(--ease);position:relative;overflow:hidden;
+}
+.qs-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.qs-icon{font-size:1.6rem;margin-bottom:.2rem}
+.qs-val{font-family:var(--font-display);font-size:1.8rem;font-weight:900;line-height:1}
+.qs-label{font-size:.78rem;color:var(--ink2);font-weight:500}
+.qs-card.lost-s .qs-val{color:var(--lost)}
+.qs-card.found-s .qs-val{color:var(--found)}
+.qs-card.total-s .qs-val{color:var(--accent)}
+.qs-card.ret-s .qs-val{color:var(--blue)}
+
+/* ============================================================
+   SECTION LABEL
+============================================================ */
+.sec-label{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.1rem;flex-wrap:wrap;gap:.5rem;
+}
+.sec-label h2{font-family:var(--font-display);font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:.5rem}
+.sec-label a{font-size:.82rem;color:var(--ink2);cursor:pointer;text-decoration:none;transition:color .2s}
+.sec-label a:hover{color:var(--accent)}
+
+/* ============================================================
+   ITEM CARDS
+============================================================ */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.1rem;margin-bottom:2.5rem}
+
+.item-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  transition:var(--ease);display:flex;flex-direction:column;
+  position:relative;
+}
+.item-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border2)}
+
+.card-img{
+  width:100%;height:160px;object-fit:cover;background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;font-size:3.5rem;
+  flex-shrink:0;
+}
+.card-img img{width:100%;height:100%;object-fit:cover}
+
+.card-body{padding:1.1rem 1.2rem;flex:1;display:flex;flex-direction:column;gap:.6rem}
+
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem}
+.card-name{font-family:var(--font-display);font-size:1.05rem;font-weight:800;letter-spacing:-.01em;line-height:1.2;flex:1}
+.badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:.22rem .65rem;border-radius:50px;flex-shrink:0;
+}
+.badge.lost{background:var(--lost-soft);color:var(--lost);border:1px solid rgba(255,77,109,.25)}
+.badge.found{background:var(--found-soft);color:var(--found);border:1px solid rgba(0,212,139,.25)}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+
+.card-desc{font-size:.83rem;color:var(--ink2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+.card-meta{display:flex;flex-wrap:wrap;gap:.4rem .8rem}
+.meta-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;color:var(--ink3)}
+
+.card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:.75rem;border-top:1px solid var(--border);margin-top:auto;flex-wrap:wrap;gap:.5rem;
+}
+.reward-tag{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:var(--accent-soft);border:1px solid rgba(255,190,11,.3);
+  color:var(--accent);font-size:.75rem;font-weight:700;
+  padding:.22rem .65rem;border-radius:50px;
+}
+
+/* Match banner */
+.match-banner{
+  background:linear-gradient(90deg,rgba(255,190,11,.15),rgba(0,212,139,.1));
+  border:1px solid var(--accent);border-radius:var(--radius-sm);
+  padding:.6rem 1rem;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;font-size:.88rem;font-weight:600;
+  color:var(--accent);
+}
+.match-banner .match-icon{font-size:1.3rem;flex-shrink:0}
+
+/* ============================================================
+   FORM PAGE
+============================================================ */
+.form-layout{display:grid;grid-template-columns:1fr 340px;gap:2rem;align-items:start}
+@media(max-width:820px){.form-layout{grid-template-columns:1fr}}
+
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.5rem,3vw,2.2rem)}
+.form-title{font-family:var(--font-display);font-size:1.3rem;font-weight:900;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+
+.form-group{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.3rem}
+.form-label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.form-input,.form-select,.form-textarea{
+  padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface2);font-family:var(--font-body);font-size:.92rem;color:var(--ink);
+  outline:none;transition:var(--ease);width:100%;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,190,11,.1);background:var(--surface3)}
+.form-input.error,.form-select.error,.form-textarea.error{border-color:var(--lost)!important;box-shadow:0 0 0 3px var(--lost-soft)!important}
+.form-select option{background:var(--surface2)}
+.form-textarea{min-height:90px;resize:vertical}
+.form-error{font-size:.78rem;color:var(--lost);display:none}
+.form-error.show{display:block}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+
+.upload-area{
+  border:2px dashed var(--border2);border-radius:var(--radius-sm);
+  padding:2rem;text-align:center;cursor:pointer;transition:var(--ease);
+  background:var(--surface2);
+}
+.upload-area:hover{border-color:var(--accent);background:var(--accent-soft)}
+.upload-area input{display:none}
+.upload-icon{font-size:2rem;margin-bottom:.5rem}
+.upload-label{font-size:.85rem;color:var(--ink2)}
+.upload-preview{
+  width:100%;max-height:180px;object-fit:cover;
+  border-radius:var(--radius-sm);margin-top:1rem;display:none;
+}
+
+/* Success box */
+.success-box{
+  background:var(--found-soft);border:1px solid rgba(0,212,139,.3);
+  border-radius:var(--radius);padding:1.5rem;text-align:center;
+  display:none;flex-direction:column;align-items:center;gap:.75rem;
+}
+.success-box.show{display:flex;animation:fadeUp .4s ease both}
+.success-icon{font-size:3rem}
+.success-title{font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:var(--found)}
+.success-msg{font-size:.9rem;color:var(--ink2)}
+
+/* Sidebar tips */
+.tips-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.tips-title{font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.tip-item{display:flex;gap:.75rem;margin-bottom:1rem;font-size:.85rem;color:var(--ink2);line-height:1.5}
+.tip-item .tip-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+
+/* ============================================================
+   CATEGORIES PAGE
+============================================================ */
+.cat-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.cat-tab{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.5rem 1.1rem;border-radius:50px;border:1.5px solid var(--border);
+  background:var(--surface);font-family:var(--font-body);font-size:.85rem;font-weight:600;
+  cursor:pointer;transition:var(--ease);color:var(--ink2);
+}
+.cat-tab:hover{border-color:var(--border2);color:var(--ink)}
+.cat-tab.active{background:var(--accent);border-color:var(--accent);color:#000}
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-bottom:2.5rem}
+.dash-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;
+  position:relative;overflow:hidden;transition:var(--ease);
+}
+.dash-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.dash-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  border-radius:0 0 var(--radius) var(--radius);
+}
+.dash-card.dc-lost::after{background:var(--lost)}
+.dash-card.dc-found::after{background:var(--found)}
+.dash-card.dc-ret::after{background:var(--blue)}
+.dash-card.dc-today::after{background:var(--accent)}
+.dash-big-icon{font-size:2.2rem;line-height:1}
+.dash-num{font-family:var(--font-display);font-size:2.8rem;font-weight:900;line-height:1;letter-spacing:-.03em}
+.dash-num.c-lost{color:var(--lost)}
+.dash-num.c-found{color:var(--found)}
+.dash-num.c-blue{color:var(--blue)}
+.dash-num.c-acc{color:var(--accent)}
+.dash-label{font-size:.82rem;color:var(--ink2);font-weight:500}
+.dash-trend{font-size:.75rem;color:var(--found);margin-top:.2rem}
+
+.bar-chart{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem}
+.chart-title{font-family:var(--font-display);font-weight:800;margin-bottom:1.2rem;font-size:1rem}
+.bar-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;font-size:.83rem}
+.bar-name{width:80px;color:var(--ink2);flex-shrink:0;text-align:right}
+.bar-track{flex:1;background:var(--surface2);border-radius:99px;height:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.bar-val{width:28px;text-align:right;font-weight:700;color:var(--ink)}
+
+.activity-log{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.log-title{font-family:var(--font-display);font-weight:800;margin-bottom:1rem;font-size:1rem}
+.log-item{display:flex;align-items:flex-start;gap:.8rem;padding:.7rem 0;border-bottom:1px solid var(--border)}
+.log-item:last-child{border-bottom:none}
+.log-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.4rem}
+.log-dot.lost{background:var(--lost)}
+.log-dot.found{background:var(--found)}
+.log-text{font-size:.85rem;color:var(--ink2);line-height:1.5}
+.log-text strong{color:var(--ink);font-weight:600}
+.log-time{font-size:.75rem;color:var(--ink3);flex-shrink:0;margin-left:auto;white-space:nowrap}
+
+/* ============================================================
+   TOAST
+============================================================ */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;z-index:9999;
+  background:var(--found);color:#000;padding:.9rem 1.4rem;
+  border-radius:var(--radius-sm);font-weight:700;font-size:.88rem;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:.6rem;
+  transform:translateY(120px);opacity:0;transition:var(--ease);max-width:320px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.toast-warn{background:var(--accent);color:#000}
+.toast.toast-err{background:var(--lost);color:#fff}
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+.empty{text-align:center;padding:3rem 1rem;color:var(--ink3);grid-column:1/-1}
+.empty-icon{font-size:3rem;margin-bottom:.75rem}
+.empty h3{font-family:var(--font-display);font-weight:800;color:var(--ink2);font-size:1.1rem;margin-bottom:.3rem}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:640px){
+  .nav-brand span.brand-text-long{display:none}
+  .nav-btn{padding:.38rem .7rem;font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+<nav>
+  <a class="nav-brand" href="#" onclick="showPage('home');return false;">
+    <span>🎒</span>
+    <span class="brand-text-long">Smart Campus</span>
+    <span class="nav-brand-badge">L&F</span>
+  </a>
+  <div class="nav-links">
+    <button class="nav-btn active" id="nav-home"       onclick="showPage('home')">🏠 Home</button>
+    <button class="nav-btn"        id="nav-report"     onclick="showPage('report')">＋ Report</button>
+    <button class="nav-btn"        id="nav-categories" onclick="showPage('categories')">📂 Categories</button>
+    <button class="nav-btn"        id="nav-dashboard"  onclick="showPage('dashboard')">📊 Dashboard</button>
+  </div>
+</nav>
+
+<!-- =========================================================
+     PAGE: HOME
+========================================================= -->
+<section class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Smart Campus Portal</div>
+    <h1>Lost Something? <span>We'll Help</span> You Find It.</h1>
+    <p class="hero-desc">The campus-wide platform to report, search, and recover lost & found items across all locations.</p>
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="home-search" placeholder="Search by item name, location…" oninput="renderHome()"/>
+      </div>
+      <button class="btn btn-primary" onclick="showPage('report')">＋ Report Item</button>
+    </div>
+  </div>
+
+  <!-- MATCH BANNER -->
+  <div class="match-banner" id="match-banner" style="display:none">
+    <span class="match-icon">🎯</span>
+    <span id="match-text"></span>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div class="quick-stats" id="quick-stats"></div>
+
+  <!-- RECENT LOST -->
+  <div class="sec-label">
+    <h2>🔴 Recent Lost Items</h2>
+    <a onclick="setHomeFilter('lost')">View all →</a>
+  </div>
+  <div class="cards-grid" id="lost-grid"></div>
+
+  <!-- RECENT FOUND -->
+  <div class="sec-label">
+    <h2>🟢 Recently Found Items</h2>
+    <a onclick="setHomeFilter('found')">View all →</a>
+  </div>
+  <div class="cards-grid" id="found-grid"></div>
+
+</section>
+
+<!-- =========================================================
+     PAGE: REPORT
+========================================================= -->
+<section class="page" id="page-report">
+  <div class="section-head">
+    <h1 class="section-title">Report an <span class="hi">Item</span></h1>
+    <p class="section-sub">Fill in the details to post a lost or found item to the campus board.</p>
+  </div>
+
+  <div class="form-layout">
+    <!-- FORM -->
+    <div>
+      <div class="form-card" id="report-form-card">
+        <div class="form-title">📋 Item Details</div>
+        <form id="report-form" onsubmit="handleSubmit(event)" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="f-name">Item Name *</label>
+            <input class="form-input" type="text" id="f-name" placeholder="e.g. Black Wallet, MacBook Pro…" maxlength="80"/>
+            <span class="form-error" id="err-name">Please enter the item name.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="f-desc">Description *</label>
+            <textarea class="form-textarea" id="f-desc" placeholder="Colour, brand, distinguishing marks, serial number…" maxlength="400"></textarea>
+            <span class="form-error" id="err-desc">Please add a description.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="f-date">Date *</label>
+              <input class="form-input" type="date" id="f-date"/>
+              <span class="form-error" id="err-date">Please pick a date.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-cat">Category *</label>
+              <select class="form-select" id="f-cat">
+                <option value="">— Status —</option>
+                <option value="lost">🔴 Lost</option>
+                <option value="found">🟢 Found</option>
+              </select>
+              <span class="form-error" id="err-cat">Please select Lost or Found.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="f-loc">Location *</label>
+              <select class="form-select" id="f-loc">
+                <option value="">— Location —</option>
+                <option value="Library">📚 Library</option>
+                <option value="Bus Stop">🚌 Bus Stop</option>
+                <option value="Cafeteria">☕ Cafeteria</option>
+                <option value="Parking Area">🅿️ Parking Area</option>
+                <option value="Classroom">🏫 Classroom</option>
+                <option value="Sports Ground">⚽ Sports Ground</option>
+                <option value="Admin Block">🏢 Admin Block</option>
+              </select>
+              <span class="form-error" id="err-loc">Please select a location.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-item-cat">Item Category</label>
+              <select class="form-select" id="f-item-cat">
+                <option value="Other">Other</option>
+                <option value="Electronics">📱 Electronics</option>
+                <option value="Wallets">👛 Wallets</option>
+                <option value="Bags">🎒 Bags</option>
+                <option value="Keys">🔑 Keys</option>
+                <option value="Documents">📄 Documents</option>
+                <option value="Accessories">⌚ Accessories</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="f-reward">Reward Amount (optional)</label>
+            <input class="form-input" type="number" id="f-reward" placeholder="₹ 0" min="0"/>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Upload Photo</label>
+            <div class="upload-area" onclick="document.getElementById('f-photo').click()">
+              <input type="file" id="f-photo" accept="image/*" onchange="previewPhoto(this)"/>
+              <div class="upload-icon">📷</div>
+              <div class="upload-label">Click to upload a photo of the item</div>
+              <img class="upload-preview" id="photo-preview" alt="preview"/>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:.85rem">
+            🚀 Submit Report
+          </button>
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-box" id="success-box">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">Report Submitted!</div>
+        <p class="success-msg" id="success-msg-text"></p>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem">
+          <button class="btn btn-ghost btn-sm" onclick="resetForm()">Submit Another</button>
+          <button class="btn btn-primary btn-sm" onclick="showPage('home')">View Board</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPS SIDEBAR -->
+    <div>
+      <div class="tips-card">
+        <div class="tips-title">💡 Tips for Faster Recovery</div>
+        <div class="tip-item"><div class="tip-icon">📸</div><div>Upload a clear photo — items with photos get 3× more responses.</div></div>
+        <div class="tip-item"><div class="tip-icon">📍</div><div>Be specific about the location — mention landmarks if possible.</div></div>
+        <div class="tip-item"><div class="tip-icon">🏷️</div><div>Include serial numbers or unique markings in the description.</div></div>
+        <div class="tip-item"><div class="tip-icon">💰</div><div>A reward often speeds up the return of lost items significantly.</div></div>
+        <div class="tip-item"><div class="tip-icon">🔔</div><div>Check the board daily — new found items are posted regularly.</div></div>
+      </div>
+
+      <div class="tips-card" style="margin-top:1rem">
+        <div class="tips-title">📞 Campus Lost & Found Office</div>
+        <div style="font-size:.85rem;color:var(--ink2);line-height:1.8">
+          🏢 Admin Block, Room 101<br>
+          ⏰ Mon–Fri: 9am – 5pm<br>
+          📞 +91 98765 43210<br>
+          📧 lostandfound@campus.edu
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     PAGE: CATEGORIES
+========================================================= -->
+<section class="page" id="page-categories">
+  <div class="section-head">
+    <h1 class="section-title">Browse by <span class="hi">Category</span></h1>
+    <p class="section-sub">Filter items by type to find what you're looking for faster.</p>
+  </div>
+  <div class="cat-tabs" id="cat-tabs"></div>
+  <div class="cards-grid" id="cat-grid"></div>
+</section>
+
+<!-- =========================================================
+     PAGE: DASHBOARD
+========================================================= -->
+<section class="page" id="page-dashboard">
+  <div class="section-head">
+    <h1 class="section-title">Campus <span class="hi">Dashboard</span></h1>
+    <p class="section-sub">Real-time statistics and activity for the Lost & Found portal.</p>
+  </div>
+  <div class="dash-grid" id="dash-grid"></div>
+  <div class="bar-chart" id="bar-chart"></div>
+  <div class="activity-log" id="activity-log"></div>
+</section>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+<script>
+/* -------------------------------------------------------
+   DATA STORE
+------------------------------------------------------- */
+const CAT_ICONS = {Electronics:'📱',Wallets:'👛',Bags:'🎒',Keys:'🔑',Documents:'📄',Accessories:'⌚',Other:'📦'};
+const LOC_ICONS = {Library:'📚','Bus Stop':'🚌',Cafeteria:'☕','Parking Area':'🅿️',Classroom:'🏫','Sports Ground':'⚽','Admin Block':'🏢'};
+
+let items = [
+  {id:1,name:'Black Leather Wallet',desc:'Slim black wallet, contains student ID card and a few notes. Has a small red star sticker inside.',date:'2025-03-01',cat:'lost',loc:'Cafeteria',itemCat:'Wallets',reward:500,img:null,contact:'9876543210'},
+  {id:2,name:'Samsung Galaxy Buds',desc:'White wireless earbuds in a white charging case. Left bud has a small scratch.',date:'2025-03-02',cat:'found',loc:'Library',itemCat:'Electronics',reward:0,img:null,contact:'9876500001'},
+  {id:3,name:'Blue Fjällräven Backpack',desc:'Navy blue canvas backpack with a green badge on the front pocket. Has laptop and notebooks inside.',date:'2025-03-03',cat:'lost',loc:'Bus Stop',itemCat:'Bags',reward:1000,img:null,contact:'9123456789'},
+  {id:4,name:'Bunch of Keys',desc:'5 keys on a silver ring with a small rubber duck keychain.',date:'2025-03-04',cat:'found',loc:'Parking Area',itemCat:'Keys',reward:0,img:null,contact:'9988776655'},
+  {id:5,name:'MacBook Pro 14"',desc:'Silver MacBook Pro, sticker of a rocket on the back cover. Has a dent near the charger port.',date:'2025-03-05',cat:'lost',loc:'Library',itemCat:'Electronics',reward:5000,img:null,contact:'9001122334'},
+  {id:6,name:'Black Leather Wallet',desc:'Found near the sports ground. Contains cards, no cash. Owner can verify contents.',date:'2025-03-05',cat:'found',loc:'Sports Ground',itemCat:'Wallets',reward:0,img:null,contact:'9445566778'},
+  {id:7,name:'Prescription Glasses',desc:'Black rectangular frames with anti-glare coating. Inside case reads "Lenskart".',date:'2025-03-06',cat:'lost',loc:'Classroom',itemCat:'Accessories',reward:200,img:null,contact:'9334455667'},
+  {id:8,name:'Student ID Card',desc:'ID card of a student. Found near the admin block entrance.',date:'2025-03-07',cat:'found',loc:'Admin Block',itemCat:'Documents',reward:0,img:null,contact:'9223344556'},
+  {id:9,name:'AirPods Pro',desc:'White AirPods Pro case. Has initials "R.K." engraved on the back.',date:'2025-03-08',cat:'lost',loc:'Cafeteria',itemCat:'Electronics',reward:2000,img:null,contact:'9112233445'},
+  {id:10,name:'Fitness Band',desc:'Black Mi Smart Band, small size. Found on the bench near the sports ground.',date:'2025-03-09',cat:'found',loc:'Sports Ground',itemCat:'Accessories',reward:0,img:null,contact:'9001234567'},
+];
+let nextId = items.length + 1;
+let returnedCount = 3;
+let currentCat = 'All';
+
+/* -------------------------------------------------------
+   PAGE NAVIGATION
+------------------------------------------------------- */
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.getElementById('nav-'+page).classList.add('active');
+  if(page==='home')       renderHome();
+  if(page==='categories') renderCategories();
+  if(page==='dashboard')  renderDashboard();
+}
+
+/* -------------------------------------------------------
+   HOME PAGE
+------------------------------------------------------- */
+let homeFilter = 'all';
+function setHomeFilter(f){homeFilter=f;renderHome()}
+
+function renderHome(){
+  const q = document.getElementById('home-search').value.trim().toLowerCase();
+
+  // Quick stats
+  const lc = items.filter(i=>i.cat==='lost').length;
+  const fc = items.filter(i=>i.cat==='found').length;
+  const today = new Date().toISOString().split('T')[0];
+  const tc = items.filter(i=>i.date===today).length;
+  document.getElementById('quick-stats').innerHTML = `
+    <div class="qs-card lost-s"><div class="qs-icon">🔴</div><div class="qs-val">${lc}</div><div class="qs-label">Lost Items</div></div>
+    <div class="qs-card found-s"><div class="qs-icon">🟢</div><div class="qs-val">${fc}</div><div class="qs-label">Found Items</div></div>
+    <div class="qs-card total-s"><div class="qs-icon">📋</div><div class="qs-val">${items.length}</div><div class="qs-label">Total Reports</div></div>
+    <div class="qs-card ret-s"><div class="qs-icon">✅</div><div class="qs-val">${returnedCount}</div><div class="qs-label">Returned</div></div>
+  `;
+
+  // Smart matching
+  const lostNames  = items.filter(i=>i.cat==='lost').map(i=>i.name.toLowerCase());
+  const foundNames = items.filter(i=>i.cat==='found').map(i=>i.name.toLowerCase());
+  const matches    = lostNames.filter(n=>foundNames.includes(n));
+  const banner     = document.getElementById('match-banner');
+  if(matches.length>0){
+    banner.style.display='flex';
+    document.getElementById('match-text').textContent=
+      `Possible Match Found! "${titleCase(matches[0])}" appears in both Lost and Found reports. Check the Categories page.`;
+  } else { banner.style.display='none'; }
+
+  // Lost grid
+  let lostItems = filterItems(items,'lost',q).slice(0,4);
+  document.getElementById('lost-grid').innerHTML = lostItems.length
+    ? lostItems.map(buildCard).join('') : emptyState('No lost items match your search.');
+
+  // Found grid
+  let foundItems = filterItems(items,'found',q).slice(0,4);
+  document.getElementById('found-grid').innerHTML = foundItems.length
+    ? foundItems.map(buildCard).join('') : emptyState('No found items match your search.');
+}
+
+function filterItems(arr,cat,q){
+  return arr.filter(i=>{
+    const matchCat = cat==='all' || i.cat===cat;
+    const matchQ   = !q || i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || i.loc.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+}
+
+/* -------------------------------------------------------
+   CARD BUILDER
+------------------------------------------------------- */
+function buildCard(item){
+  const imgHtml = item.img
+    ? `<div class="card-img"><img src="${item.img}" alt="${esc(item.name)}"/></div>`
+    : `<div class="card-img">${CAT_ICONS[item.itemCat]||'📦'}</div>`;
+
+  const rewardHtml = item.reward>0
+    ? `<span class="reward-tag">💰 ₹${item.reward} Reward</span>` : '';
+
+  return `
+    <div class="item-card">
+      ${imgHtml}
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-name">${esc(item.name)}</div>
+          <span class="badge ${item.cat}">${item.cat==='lost'?'Lost':'Found'}</span>
+        </div>
+        <div class="card-desc">${esc(item.desc)}</div>
+        <div class="card-meta">
+          <span class="meta-tag">${LOC_ICONS[item.loc]||'📍'} ${item.loc}</span>
+          <span class="meta-tag">📅 ${fmtDate(item.date)}</span>
+          <span class="meta-tag">${CAT_ICONS[item.itemCat]||'📦'} ${item.itemCat}</span>
+        </div>
+        <div class="card-footer">
+          ${rewardHtml}
+          <button class="btn-contact" onclick="contactFinder('${esc(item.name)}','${item.contact}')">📞 Contact Finder</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function contactFinder(name, phone){
+  showToast(`📞 Contact for "${name}": ${phone}`, 'warn');
+}
+
+/* -------------------------------------------------------
+   REPORT FORM
+------------------------------------------------------- */
+function previewPhoto(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const prev = document.getElementById('photo-preview');
+    prev.src = e.target.result;
+    prev.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleSubmit(e){
+  e.preventDefault();
+  const nameEl   = document.getElementById('f-name');
+  const descEl   = document.getElementById('f-desc');
+  const dateEl   = document.getElementById('f-date');
+  const catEl    = document.getElementById('f-cat');
+  const locEl    = document.getElementById('f-loc');
+  const rewardEl = document.getElementById('f-reward');
+  const itemCatEl= document.getElementById('f-item-cat');
+  const photoEl  = document.getElementById('f-photo');
+
+  let valid = true;
+  function chk(el,errId,cond){
+    document.getElementById(errId).classList.toggle('show',!cond);
+    el.classList.toggle('error',!cond);
+    if(!cond) valid=false;
+  }
+  chk(nameEl,'err-name', nameEl.value.trim().length>0);
+  chk(descEl,'err-desc', descEl.value.trim().length>0);
+  chk(dateEl,'err-date', dateEl.value!=='');
+  chk(catEl, 'err-cat',  catEl.value!=='');
+  chk(locEl, 'err-loc',  locEl.value!=='');
+  if(!valid) return;
+
+  const newItem = {
+    id:      nextId++,
+    name:    nameEl.value.trim(),
+    desc:    descEl.value.trim(),
+    date:    dateEl.value,
+    cat:     catEl.value,
+    loc:     locEl.value,
+    itemCat: itemCatEl.value,
+    reward:  parseFloat(rewardEl.value)||0,
+    img:     photoEl.files.length ? document.getElementById('photo-preview').src : null,
+    contact: '9000000000'
+  };
+
+  items.unshift(newItem);
+
+  // Smart match check
+  const matchMsg = checkMatch(newItem);
+
+  // Show success screen
+  document.getElementById('report-form-card').style.display='none';
+  const sb = document.getElementById('success-box');
+  sb.classList.add('show');
+
+  let msg = `Your "<strong>${esc(newItem.name)}</strong>" has been posted as a <strong>${newItem.cat}</strong> item at <strong>${newItem.loc}</strong>.`;
+  if(matchMsg) msg += `<br><br>🎯 <strong style="color:var(--accent)">${matchMsg}</strong>`;
+  document.getElementById('success-msg-text').innerHTML = msg;
+
+  showToast(matchMsg ? `🎯 ${matchMsg}` : '✅ Item reported successfully!', matchMsg ? 'warn' : 'ok');
+}
+
+function checkMatch(newItem){
+  const name     = newItem.name.toLowerCase();
+  const opposite = newItem.cat==='lost' ? 'found' : 'lost';
+  const match    = items.find(i=>i.id!==newItem.id && i.cat===opposite && i.name.toLowerCase()===name);
+  if(match) return `Possible Match Found! A "${newItem.name}" was already reported as ${opposite}.`;
+  return null;
+}
+
+function resetForm(){
+  document.getElementById('report-form').reset();
+  document.getElementById('photo-preview').style.display='none';
+  document.getElementById('report-form-card').style.display='block';
+  document.getElementById('success-box').classList.remove('show');
+  document.querySelectorAll('.form-error').forEach(e=>e.classList.remove('show'));
+  document.querySelectorAll('.form-input,.form-select,.form-textarea').forEach(e=>e.classList.remove('error'));
+}
+
+/* -------------------------------------------------------
+   CATEGORIES PAGE
+------------------------------------------------------- */
+const CATS = ['All','Electronics','Wallets','Bags','Keys','Documents','Accessories','Other'];
+
+function renderCategories(){
+  document.getElementById('cat-tabs').innerHTML = CATS.map(c=>`
+    <div class="cat-tab${c===currentCat?' active':''}" onclick="setCat('${c}')">
+      ${CAT_ICONS[c]||'🔎'} ${c}
+    </div>`).join('');
+
+  const filtered = currentCat==='All' ? items : items.filter(i=>i.itemCat===currentCat);
+  document.getElementById('cat-grid').innerHTML = filtered.length
+    ? filtered.map(buildCard).join('')
+    : emptyState(`No items in "${currentCat}" category yet.`);
+}
+
+function setCat(c){
+  currentCat = c;
+  renderCategories();
+}
+
+/* -------------------------------------------------------
+   DASHBOARD PAGE
+------------------------------------------------------- */
+function renderDashboard(){
+  const lc    = items.filter(i=>i.cat==='lost').length;
+  const fc    = items.filter(i=>i.cat==='found').length;
+  const today = new Date().toISOString().split('T')[0];
+  const tc    = items.filter(i=>i.date===today).length;
+
+  document.getElementById('dash-grid').innerHTML = `
+    <div class="dash-card dc-lost">
+      <div class="dash-big-icon">🔴</div>
+      <div class="dash-num c-lost">${lc}</div>
+      <div class="dash-label">Total Lost Items</div>
+      <div class="dash-trend">↑ active reports</div>
+    </div>
+    <div class="dash-card dc-found">
+      <div class="dash-big-icon">🟢</div>
+      <div class="dash-num c-found">${fc}</div>
+      <div class="dash-label">Total Found Items</div>
+      <div class="dash-trend">↑ awaiting owners</div>
+    </div>
+    <div class="dash-card dc-ret">
+      <div class="dash-big-icon">✅</div>
+      <div class="dash-num c-blue">${returnedCount}</div>
+      <div class="dash-label">Items Returned</div>
+      <div class="dash-trend" style="color:var(--found)">successfully reunited</div>
+    </div>
+    <div class="dash-card dc-today">
+      <div class="dash-big-icon">📅</div>
+      <div class="dash-num c-acc">${tc}</div>
+      <div class="dash-label">Reported Today</div>
+      <div class="dash-trend" style="color:var(--accent)">new entries</div>
+    </div>
+  `;
+
+  // Bar chart by location
+  const locs = ['Library','Cafeteria','Bus Stop','Parking Area','Classroom','Sports Ground','Admin Block'];
+  const locCounts = locs.map(l=>({loc:l,count:items.filter(i=>i.loc===l).length}));
+  const maxC = Math.max(...locCounts.map(l=>l.count),1);
+  const colors = ['#FF4D6D','#00D48B','#FFBE0B','#4361EE','#8B5CF6','#06D6A0','#FF9F1C'];
+  document.getElementById('bar-chart').innerHTML = `
+    <div class="chart-title">📍 Items by Location</div>
+    ${locCounts.map((l,i)=>`
+      <div class="bar-row">
+        <div class="bar-name" style="font-size:.75rem">${l.loc}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.round(l.count/maxC*100)}%;background:${colors[i%colors.length]}"></div></div>
+        <div class="bar-val">${l.count}</div>
+      </div>`).join('')}
+  `;
+
+  // Activity log
+  const recent = [...items].sort((a,b)=>b.id-a.id).slice(0,8);
+  document.getElementById('activity-log').innerHTML = `
+    <div class="log-title">🕐 Recent Activity</div>
+    ${recent.map(i=>`
+      <div class="log-item">
+        <div class="log-dot ${i.cat}"></div>
+        <div class="log-text">
+          <strong>${esc(i.name)}</strong> reported as <strong>${i.cat}</strong> at ${i.loc} — ${CAT_ICONS[i.itemCat]||''} ${i.itemCat}
+        </div>
+        <div class="log-time">${fmtDate(i.date)}</div>
+      </div>`).join('')}
+  `;
+}
+
+/* -------------------------------------------------------
+   TOAST
+------------------------------------------------------- */
+function showToast(msg, type='ok'){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type==='warn'?' toast-warn':type==='err'?' toast-err':'');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>t.classList.remove('show'), 4000);
+}
+
+/* -------------------------------------------------------
+   UTILITIES
+------------------------------------------------------- */
+function esc(str){
+  const d=document.createElement('div');
+  d.appendChild(document.createTextNode(String(str)));
+  return d.innerHTML;
+}
+function fmtDate(d){
+  if(!d) return '—';
+  return new Date(d+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+}
+function titleCase(s){return s.replace(/\b\w/g,c=>c.toUpperCase())}
+function emptyState(msg){
+  return `<div class="empty"><div class="empty-icon">🕳️</div><h3>${msg}</h3></div>`;
+}
+
+/* -------------------------------------------------------
+   INIT
+------------------------------------------------------- */
+renderHome();
+</script>
+</body>
+</html>
+vaishfinal.html
+Displaying vaishfinal.html.
